@@ -1,0 +1,36 @@
+name: Python FastAPI CI/CD
+
+on: [push]
+
+env:
+  AZURE_WEBAPP_NAME: my-python-app    # Set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to the app directory, default is repo root
+  PYTHON_VERSION: '3.12'               # Define the Python version
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repo
+      - uses: actions/checkout@v3
+
+      # Setup Python Environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Deploy to Azure Web Apps
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your Azure App Name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Store secret in GitHub Repository Settings
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
