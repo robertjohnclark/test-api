@@ -3,7 +3,7 @@ name: Python FastAPI CI/CD
 on: [push]
 
 env:
-  AZURE_WEBAPP_NAME: my-python-app    # Set this to your application's name
+  AZURE_WEBAPP_NAME: mongoosej-fastapi-app    # Set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # Path to the app directory, default is repo root
   PYTHON_VERSION: '3.12'               # Define the Python version
 
