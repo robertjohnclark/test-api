@@ -6,3 +6,6 @@ app = FastAPI()
 async def read_root():
   return {"message": "Hello, Azure Web App!"}
   
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=8000)
